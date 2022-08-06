@@ -12,8 +12,8 @@ import "@openzeppelin/contracts/security/Pausable.sol";
  * @title ERC20 Token for ScoutHub
  * @author 0xVeliUysal, 0xfunTalia, Dozcan, ScoutHUB and Deneth
  */
-contract ScoutHubToken is Context, IERC20, IERC20Metadata, Ownable, Pausable {
-    string public constant name = "ScoutHUB Token"; //  ScoutHub Project
+contract ScoutHUBToken is Context, IERC20, IERC20Metadata, Ownable, Pausable {
+    string public constant name = "ScoutHUB Token"; //  ScoutHUB Project
     string public constant symbol = "HUB"; // our ticker is HUB
     uint8 public constant decimals = 18;
     uint256 public totalSupply = 1_000_000_000 ether; // total supply is 1,000,000,000
@@ -26,7 +26,7 @@ contract ScoutHubToken is Context, IERC20, IERC20Metadata, Ownable, Pausable {
     mapping(address => uint32) private cooldowns;
     // Some addresses should never have a cooldown, such as exchange addresses. Those can be added here.
     mapping(address => bool) private cooldownWhitelist;
-    uint256 constant MEV_COOLDOWN_TIME = 3 minutes;
+    uint256 public MEV_COOLDOWN_TIME = 1 minutes;
 
     event Mint(address indexed minter, address indexed account, uint256 amount);
     event Burn(address indexed burner, address indexed account, uint256 amount);
@@ -258,7 +258,7 @@ contract ScoutHubToken is Context, IERC20, IERC20Metadata, Ownable, Pausable {
             // Change the error message according to the customized cooldown time.
             require(
                 cooldowns[from] <= uint32(block.timestamp),
-                "Please wait 3 minutes before transferring or selling your tokens."
+                "Please wait before transferring or selling your tokens."
             );
         }
     }
@@ -298,6 +298,10 @@ contract ScoutHubToken is Context, IERC20, IERC20Metadata, Ownable, Pausable {
      */
     function removeCooldownWhitelist(address whitelistAddy) external onlyOwner {
         cooldownWhitelist[whitelistAddy] = false;
+    }
+    
+    function setMEVCooldown(uint256 cooldown) external onlyOwner {
+           MEV_COOLDOWN_TIME = cooldown;
     }
 
     /*
