@@ -1,5 +1,5 @@
 # smart-contract
 ScoutHUB - Hub token smart contract repo...
 Hub token is BEP20 token which was deployed on binance smart chain...
-our contract address is : 0xee7B7c840de85ad277CdddaEf63b3b29672a3C58
+Our contract address is : 0xee7B7c840de85ad277CdddaEf63b3b29672a3C58
 Bsc tracker : https://bscscan.com/address/0xee7B7c840de85ad277CdddaEf63b3b29672a3C58
